@@ -1,4 +1,4 @@
 abstract class AssetImages {
-  static const splashImage ='assets/whatsapp.png';
+  static const logo ='assets/images/whatsapp.png';
 
 }

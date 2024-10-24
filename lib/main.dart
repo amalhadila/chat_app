@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_chat/features/chat_home/presentation/views/widgets/bottom_bar.dart';
 import 'package:new_chat/features/splash/presentation/views/splash_view.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        
+        scaffoldBackgroundColor: Colors.white
+                
        
       ),
       home: SplashView(),
