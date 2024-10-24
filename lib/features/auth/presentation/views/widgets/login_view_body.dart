@@ -8,6 +8,7 @@ import 'package:new_chat/features/auth/presentation/views/widgets/logo_widget.da
 import 'package:new_chat/features/auth/presentation/views/widgets/password_textfield.dart';
 import 'package:new_chat/features/auth/presentation/views/widgets/register_row.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chathome_view.dart';
+import 'package:new_chat/features/chat_home/presentation/views/widgets/bottom_bar.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -49,7 +50,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                  CustomBotton(title: 'Log In', onPressed: () { 
                    if (globalKey.currentState!.validate()){
                     Fluttertoast.showToast(msg: 'success');
-                    Navigator.push(context, MaterialPageRoute(builder:(context) => const ChathomeView() ));
+                    Navigator.push(context, MaterialPageRoute(builder:(context) => const BottomBar() ));
                    }
                   },
                  ) ,

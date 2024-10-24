@@ -10,6 +10,7 @@ import 'package:new_chat/features/auth/presentation/views/widgets/password_textf
 import 'package:new_chat/features/auth/presentation/views/widgets/phone_textfield.dart';
 import 'package:new_chat/features/auth/presentation/views/widgets/register_row.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chathome_view.dart';
+import 'package:new_chat/features/chat_home/presentation/views/widgets/bottom_bar.dart';
 
 class SignupViewBody extends StatefulWidget {
   const SignupViewBody({super.key});
@@ -54,7 +55,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                  CustomBotton(title: 'Sign Up', onPressed: () {
                   if (globalKey.currentState!.validate()){
                      Fluttertoast.showToast(msg: 'success');
-                     Navigator.push(context, MaterialPageRoute(builder:(context) => const ChathomeView() ));
+                     Navigator.push(context, MaterialPageRoute(builder:(context) => const BottomBar() ));
                   }
                    },
                  ) ,

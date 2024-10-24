@@ -29,22 +29,17 @@ class _SplashViewmodelState extends State<SplashViewmodel> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Spacer(flex: 4,),
-            Image.asset(AssetImages.logo,width: MediaQuery.of(context).size.width*.545,
-            height: MediaQuery.of(context).size.height*.23,fit: BoxFit.fill,),
+            
                       
             const Spacer(flex: 4,),
             Image.asset(AssetImages.logo,width: MediaQuery.of(context).size.width*.545,
-            height: MediaQuery.of(context).size.height*.23,fit: BoxFit.fill,),
-                      
+            height: MediaQuery.of(context).size.height*.23,fit: BoxFit.fill,),                      
              Text('WhatsUp',style: Styles.textStyle24,),
            
-            const Spacer(),
            
             const Spacer(),
             Center(child: Text('The best chat app of this century',style: Styles.textStyle18,)),
            
-            const Spacer(flex: 4,),
            
             const Spacer(flex: 4,),
         
