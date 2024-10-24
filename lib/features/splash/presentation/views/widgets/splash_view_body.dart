@@ -3,7 +3,6 @@ import 'package:new_chat/core/constants/asset_images.dart';
 import 'package:new_chat/core/constants/asset_images.dart';
 import 'package:new_chat/core/theme/styles.dart';
 import 'package:new_chat/features/auth/presentation/views/signup_view.dart';
-import 'package:new_chat/features/chat_home/presentation/views/chat_home_view.dart';
 
 class SplashViewmodel extends StatefulWidget {
   const SplashViewmodel({super.key});
