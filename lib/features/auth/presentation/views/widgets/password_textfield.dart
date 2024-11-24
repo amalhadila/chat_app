@@ -3,13 +3,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:new_chat/core/shared_widgets/custom_form_field.dart';
 
 class PasswordTextfield extends StatelessWidget {
-  const PasswordTextfield({super.key, required this.togglevisibility, required this.isvisible, required this.isobscure});
+  const PasswordTextfield({super.key,required this.onChanged ,required this.togglevisibility, required this.isvisible, required this.isobscure});
   final VoidCallback togglevisibility;
   final bool isvisible;
   final bool isobscure;
+  final void Function(String) onChanged;
   @override
   Widget build(BuildContext context) {
     return  CustomFormField(
+      onChanged: onChanged,
       isobscure: isobscure,
       keyboardType: TextInputType.visiblePassword,
       validate: (value ) { 

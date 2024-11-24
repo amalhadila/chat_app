@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_chat/core/theme/color_app.dart';
 import 'package:new_chat/core/theme/styles.dart';
 import 'package:new_chat/features/chat_home/presentation/views/calls_view.dart';
-import 'package:new_chat/features/chat_home/presentation/views/chat_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chathome_view.dart';
 import 'package:new_chat/features/profile/presentation/views/profile_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/status_view.dart';
@@ -39,8 +39,8 @@ class _BottomBarState extends State<BottomBar> {
            onSelected: (String value) {
     if (value == 'profile') {
       Navigator.push(context, MaterialPageRoute(builder:(context) => const ProfileView()));
-    } else if (value == 'log out') {
-       Navigator.push(context, MaterialPageRoute(builder:(context) => const SplashView()));
+    } else if (value == 'log out')  {
+     FirebaseAuth.instance.signOut();
     }
   },
           itemBuilder: (BuildContext context) {

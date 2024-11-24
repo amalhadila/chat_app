@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:new_chat/features/chat_home/presentation/views/widgets/chat_view_body.dart';
 
 class ChatView extends StatelessWidget {
-  const ChatView({super.key});
-
+  const ChatView({super.key, required this.room_id});
+  final String room_id;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -26,6 +26,6 @@ class ChatView extends StatelessWidget {
                   
                   IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))],     
       ),
-      body: ChatViewBody());
+      body: ChatViewBody(room_id: room_id,));
   }
 }

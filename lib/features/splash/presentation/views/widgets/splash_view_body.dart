@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_chat/core/constants/asset_images.dart';
-import 'package:new_chat/core/constants/asset_images.dart';
 import 'package:new_chat/core/theme/styles.dart';
-import 'package:new_chat/features/auth/presentation/views/signup_view.dart';
+import 'package:new_chat/features/auth/presentation/views/login_view.dart';
+import 'package:new_chat/features/chat_home/presentation/views/widgets/bottom_bar.dart';
 
 class SplashViewmodel extends StatefulWidget {
   const SplashViewmodel({super.key});
@@ -17,8 +18,16 @@ class _SplashViewmodelState extends State<SplashViewmodel> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3),(){
-      Navigator.push(context, MaterialPageRoute(builder:(context) => const SignupView() ));
-      Navigator.push(context, MaterialPageRoute(builder:(context) => const SignupView() ));
+      Navigator.push(context, MaterialPageRoute(builder:(context) => StreamBuilder(
+        stream: FirebaseAuth.instance.userChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData){
+          return const BottomBar();}
+          else{
+             return const LoginView();
+          }
+        }
+      ) ));
     });
   }
   Widget build(BuildContext context) {

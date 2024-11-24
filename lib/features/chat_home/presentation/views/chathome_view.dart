@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_chat/core/theme/color_app.dart';
+import 'package:new_chat/features/chat_home/presentation/manager/chat_firebase/firebase_chat.dart';
 import 'package:new_chat/features/chat_home/presentation/views/widgets/chathome_body.dart';
 
 class ChathomeView extends StatelessWidget {
@@ -8,7 +9,9 @@ class ChathomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){},
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        FirebaseChat().createroom('q@gmail.com');
+      },
       backgroundColor: ColorApp.primaryColor,
       child:const Icon(Icons.message, color: Colors.white,)),
       body: ChathomeBody(),

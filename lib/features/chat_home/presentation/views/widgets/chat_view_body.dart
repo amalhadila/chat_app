@@ -3,7 +3,8 @@ import 'package:new_chat/features/chat_home/presentation/views/widgets/chat_bubb
 import 'package:new_chat/features/chat_home/presentation/views/widgets/textfield_message.dart';
 
 class ChatViewBody extends StatelessWidget {
-  const ChatViewBody({super.key});
+  const ChatViewBody({super.key, required this.room_id});
+  final String room_id;
 
   @override
   Widget build(BuildContext context) {

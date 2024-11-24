@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_chat/features/auth/presentation/manager/cubit/register_cubit.dart';
 import 'package:new_chat/features/auth/presentation/views/widgets/signup_view_body.dart';
 
 class SignupView extends StatelessWidget {
@@ -6,9 +8,12 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child:  Scaffold(
-        body: SignupViewBody(),
+    return BlocProvider(
+      create: (context) => RegisterCubit(),
+      child:  SafeArea(
+        child: Scaffold(
+          body: SignupViewBody(),
+        ),
       ),
     );
   }
