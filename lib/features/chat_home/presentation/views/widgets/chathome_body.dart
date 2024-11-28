@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_chat/features/chat_home/data/room_model.dart';
+import 'package:new_chat/features/chat_home/data/models/room_model.dart';
 import 'package:new_chat/features/chat_home/presentation/views/widgets/chathome_list_item.dart';
 
 class ChathomeBody extends StatelessWidget {

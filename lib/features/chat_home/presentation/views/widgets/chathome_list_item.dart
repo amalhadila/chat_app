@@ -25,7 +25,7 @@ class ChathomeListItem extends StatelessWidget {
           UserModel userModel=UserModel.fromMap(snapshot.data!.data()!) ;
   return ListTile(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder:(context) =>  ChatView(room_id: room_id,)));
+      Navigator.push(context, MaterialPageRoute(builder:(context) =>  ChatView(room_id: room_id,userModel: userModel,)));
     },
     contentPadding: const EdgeInsets.symmetric(vertical: 2,horizontal:16),
     

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:new_chat/features/auth/data/models/user_model.dart';
 import 'package:new_chat/features/chat_home/presentation/views/widgets/chat_view_body.dart';
 
 class ChatView extends StatelessWidget {
-  const ChatView({super.key, required this.room_id});
+  const ChatView({super.key, required this.room_id, required this.userModel});
   final String room_id;
+  final UserModel userModel;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -11,14 +13,14 @@ class ChatView extends StatelessWidget {
         backgroundColor: Colors.white,
                titleSpacing: 2,
                centerTitle: false,
-              title:  const ListTile(
+              title:   ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal:0),
               
               leading:
                   CircleAvatar(radius:20,),              
               subtitleTextStyle: TextStyle(fontSize: 10,color: Colors.black),
-              title: Text('name'),
-              subtitle: Text('last seen today at 12:00 pm'),),
+              title: Text(userModel.name!),
+              subtitle: Text(userModel.lastActivate!),),
 
          actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.videocam_outlined)),
@@ -26,6 +28,6 @@ class ChatView extends StatelessWidget {
                   
                   IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))],     
       ),
-      body: ChatViewBody(room_id: room_id,));
+      body: ChatViewBody(room_id: room_id,userModel:userModel));
   }
 }

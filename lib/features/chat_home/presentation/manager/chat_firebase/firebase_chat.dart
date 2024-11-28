@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:new_chat/features/chat_home/data/room_model.dart';
+import 'package:new_chat/features/chat_home/data/models/message_model.dart';
+import 'package:new_chat/features/chat_home/data/models/room_model.dart';
+import 'package:uuid/uuid.dart';
 
 class FirebaseChat {
   final FirebaseFirestore   firebasestorage = FirebaseFirestore.instance;
   final String my_id= FirebaseAuth.instance.currentUser!.uid;
    
-  createroom(String email)async{
+ Future createroom(String email)async{
     QuerySnapshot user_email=await firebasestorage.collection('users').where('email',isEqualTo: email).get();
     if (user_email.docs.isNotEmpty) {
     String user_id=user_email.docs.first.id;
@@ -24,5 +26,19 @@ class FirebaseChat {
   await  firebasestorage.collection('rooms').doc(members.toString()).set(chatroom.toMap());
   }
 }
+  }
+
+ Future sendmessage(String uid,String message,String room_id) async{
+    String message_id=Uuid().v1();
+    MessageModel messageModel=MessageModel(
+      id:message_id,
+     fromid: my_id,
+      toid: uid, 
+           messsage: message,
+      messsagetime: DateTime.now().toString(),
+      type: 'text', 
+           read: '');
+
+    await   firebasestorage.collection('rooms').doc(room_id).collection('messages').doc(message_id).set(messageModel.toMap());     
   }
 }
