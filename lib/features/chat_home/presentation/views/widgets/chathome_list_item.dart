@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:new_chat/core/theme/color_app.dart';
 import 'package:new_chat/features/auth/data/models/user_model.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chat_view.dart';
@@ -37,7 +38,7 @@ class ChathomeListItem extends StatelessWidget {
     trailing: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(date!),
+        Text(DateFormat.yMMMEd().format( DateTime.fromMillisecondsSinceEpoch(int.parse(date!))).toString()),
         const SizedBox(height: 9,),
         Badge(
           backgroundColor: ColorApp.primaryColor,

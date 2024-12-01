@@ -19,9 +19,9 @@ class FirebaseChat {
     RoomModel chatroom =RoomModel(
       id: members.toString(),
      members: [my_id,user_id],
-     createdAt: DateTime.now().toString(),
+     createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
      lastmessage:'',
-     lastmessagetime: DateTime.now().toString(),
+     lastmessagetime: DateTime.now().millisecondsSinceEpoch.toString(),
    );
   await  firebasestorage.collection('rooms').doc(members.toString()).set(chatroom.toMap());
   }
@@ -35,7 +35,7 @@ class FirebaseChat {
      fromid: my_id,
       toid: uid, 
            messsage: message,
-      messsagetime: DateTime.now().toString(),
+      messsagetime: DateTime.now().millisecondsSinceEpoch.toString(),
       type: 'text', 
            read: '');
 
