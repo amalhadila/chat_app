@@ -28,7 +28,7 @@ class ChathomeBody extends StatelessWidget {
   child: ListView.builder(
     itemCount: rooms.length,
     itemBuilder: (context, index) {
-      return  ChathomeListItem(members: rooms[index].members!,name: rooms[index].id!, subtitle: rooms[index].lastmessage!, date: rooms[index].lastmessagetime!,unread: '2',room_id: rooms[index].id!,);
+      return  ChathomeListItem(lastmessagetime: rooms[index].lastmessagetime!,members: rooms[index].members!,name: rooms[index].id!, subtitle: rooms[index].lastmessage!, date: rooms[index].lastmessagetime!,room_id: rooms[index].id!,);
       
     },
   

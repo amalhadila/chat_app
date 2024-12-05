@@ -39,6 +39,11 @@ class FirebaseChat {
       type: 'text', 
            read: '');
 
-    await   firebasestorage.collection('rooms').doc(room_id).collection('messages').doc(message_id).set(messageModel.toMap());     
+    await   firebasestorage.collection('rooms').doc(room_id).collection('messages').doc(message_id).set(messageModel.toMap());   
+    await firebasestorage.collection('rooms').doc(room_id).update({'lastmessage':message,'lastmessagetime':DateTime.now().millisecondsSinceEpoch.toString()});  
+  }
+  
+  Future messageseen(String room_id,String message_id) async{
+    await firebasestorage.collection('rooms').doc(room_id).collection('messages').doc(message_id).update({'read':'true'});
   }
 }

@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:new_chat/core/theme/color_app.dart';
 import 'package:new_chat/features/auth/data/models/user_model.dart';
+import 'package:new_chat/features/chat_home/data/models/message_model.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chat_view.dart';
 
 class ChathomeListItem extends StatelessWidget {
-  const ChathomeListItem({super.key, required this.name, required this.subtitle, required this.date, this.unread, required this.room_id, required this.members});
+  const ChathomeListItem({super.key,required this.lastmessagetime, required this.name, required this.subtitle, required this.date,  required this.room_id, required this.members});
   final String? name;
   final String? subtitle;
   final String ?date;
-  final String? unread;
     final String room_id;
     final List members;
+    final String lastmessagetime;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +41,17 @@ class ChathomeListItem extends StatelessWidget {
       children: [
         Text(DateFormat.yMMMEd().format( DateTime.fromMillisecondsSinceEpoch(int.parse(date!))).toString()),
         const SizedBox(height: 9,),
-        Badge(
-          backgroundColor: ColorApp.primaryColor,
-          largeSize: 23,
-          padding: const EdgeInsets.all(1),
-          label:unread!=null? Text(unread!):null,
+        StreamBuilder(
+           stream: FirebaseFirestore.instance.collection('rooms').doc(room_id).collection('messages').snapshots(),
+          builder: (context, snapshot) {
+            final  unreadlist=snapshot.data?.docs.map((e)=>MessageModel.fromMap(e.data())).where((element) => element.read =='',).where((Element)=>Element.id !=FirebaseAuth.instance.currentUser!.uid)??[];
+            return unreadlist!.length !=0? Badge(
+              backgroundColor: ColorApp.primaryColor,
+              largeSize: 23,
+              padding: const EdgeInsets.all(1),
+              label:Text(unreadlist.length.toString()),
+            ):Text(DateFormat.EEEE().format( DateTime.fromMillisecondsSinceEpoch(int.parse(lastmessagetime))).toString());
+          }
         )
       ],
     ),
