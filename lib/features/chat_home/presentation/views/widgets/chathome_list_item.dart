@@ -44,7 +44,7 @@ class ChathomeListItem extends StatelessWidget {
         StreamBuilder(
            stream: FirebaseFirestore.instance.collection('rooms').doc(room_id).collection('messages').snapshots(),
           builder: (context, snapshot) {
-            final  unreadlist=snapshot.data?.docs.map((e)=>MessageModel.fromMap(e.data())).where((element) => element.read =='',).where((Element)=>Element.id !=FirebaseAuth.instance.currentUser!.uid)??[];
+            final  unreadlist=snapshot.data?.docs.map((e)=>MessageModel.fromMap(e.data())).where((element) => element.read =='',).where((element)=>element.fromid != FirebaseAuth.instance.currentUser!.uid)??[];
             return unreadlist!.length !=0? Badge(
               backgroundColor: ColorApp.primaryColor,
               largeSize: 23,

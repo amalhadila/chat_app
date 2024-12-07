@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:new_chat/core/firebase_auth/firebase_auth.dart';
 import 'package:new_chat/features/chat_home/presentation/manager/chat_firebase/firebase_chat.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 class ChatBubble extends StatefulWidget {
-  const ChatBubble({super.key, required this.messages, required this.isme, required this.messagestime, required this.read, required this.room_id, required this.message_id, required this.toid});
+  const ChatBubble({super.key,required this.type, required this.messages, required this.isme, required this.messagestime, required this.read, required this.room_id, required this.message_id, required this.toid});
   final String messages; 
   final String messagestime;
+  final String type;
   final bool isme;
   final String read;
   final String room_id;
@@ -44,7 +46,12 @@ class _ChatBubbleState extends State<ChatBubble> {
           child: Column(
             crossAxisAlignment:widget.isme? CrossAxisAlignment.end: CrossAxisAlignment.start,
             children: [
-                                  Text(widget.messages,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w500,color: Colors.black),),
+                       widget.type=='image'?  Container(
+                        width: MediaQuery.of(context).size.width*.25,
+                        height: MediaQuery.of(context).size.height*.35,
+                        
+                        child:CachedNetworkImage( imageUrl:widget.messages,fit: BoxFit.fill,),
+                       ):Text(widget.messages,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w500,color: Colors.black),),
 
               SizedBox(
                 width: 85,

@@ -26,7 +26,7 @@ class ChatViewBody extends StatelessWidget {
                   itemCount: messages.length,
                 itemBuilder: (context, index) {
                   bool isme=messages[index].fromid==FirebaseAuth.instance.currentUser!.uid;
-                  return ChatBubble(toid: messages[index].toid!,room_id: room_id,message_id: messages[index].id!,read: messages[index].read!,messages: messages[index].messsage!,isme:isme,messagestime: messages[index].messsagetime!,);
+                  return ChatBubble(toid: messages[index].toid!,room_id: room_id,message_id: messages[index].id!,read: messages[index].read!,messages: messages[index].messsage!,isme:isme,messagestime: messages[index].messsagetime!, type: messages[index].type!,);
                 },),
               );
             }else{

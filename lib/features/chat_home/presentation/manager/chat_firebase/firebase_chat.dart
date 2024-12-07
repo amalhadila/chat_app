@@ -28,15 +28,16 @@ class FirebaseChat {
 }
   }
 
- Future sendmessage(String uid,String message,String room_id) async{
+ Future sendmessage({required String uid,String? message,required String room_id, String? type}) async{
     String message_id=Uuid().v1();
     MessageModel messageModel=MessageModel(
       id:message_id,
      fromid: my_id,
+     
       toid: uid, 
            messsage: message,
       messsagetime: DateTime.now().millisecondsSinceEpoch.toString(),
-      type: 'text', 
+      type:type?? 'text', 
            read: '');
 
     await   firebasestorage.collection('rooms').doc(room_id).collection('messages').doc(message_id).set(messageModel.toMap());   
