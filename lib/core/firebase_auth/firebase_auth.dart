@@ -18,9 +18,8 @@ class Firebaseauth {
       active: true,
       about: 'Hello I am using whataApp',
       phone:phone,
-
-
-    );
+      contacts:[]
+          );
     await firebasestorage.collection('users').doc(user!.uid).set(chatuser.toMap());
   }
 }

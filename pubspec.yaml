@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  app_settings: ^5.1.1
   bloc: ^8.1.4
   cached_network_image: ^3.4.1
   cloud_firestore: ^5.5.0
@@ -37,11 +38,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_contacts: ^1.1.9+2
   fluttertoast: ^8.2.8
   google_fonts: ^6.2.1
   image_picker: ^1.1.2
   intl: ^0.20.1
   modal_progress_hud_nsn: ^0.5.1
+  permission_handler: ^11.3.1
   supabase_flutter: ^2.8.1
   uuid: ^4.5.1
 

@@ -27,6 +27,36 @@ class FirebaseChat {
   }
 }
   }
+ 
+ 
+Future<void> addContacts(List<String> phones) async {
+  List<String> userIds = [];
+
+  for (String phone in phones) {
+    QuerySnapshot userPhoneSnapshot = await firebasestorage
+        .collection('users')
+        .where('phone', isEqualTo: phone)
+        .get();
+
+    if (userPhoneSnapshot.docs.isNotEmpty) {
+      String userId = userPhoneSnapshot.docs.first.id;
+
+      if (!userIds.contains(userId)) {
+        userIds.add(userId);
+      }
+    }
+  }
+
+  if (userIds.isNotEmpty) {
+    await firebasestorage.collection('users').doc(my_id).update({
+      'contacts': FieldValue.arrayUnion(userIds),
+    });
+    print('Contacts added successfully: $userIds');
+  } else {
+    print('No matching users found.');
+  }
+}
+
 
  Future sendmessage({required String uid,String? message,required String room_id, String? type}) async{
     String message_id=Uuid().v1();

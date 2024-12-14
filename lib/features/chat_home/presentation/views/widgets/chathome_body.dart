@@ -5,14 +5,13 @@ import 'package:new_chat/features/chat_home/data/models/room_model.dart';
 import 'package:new_chat/features/chat_home/presentation/views/widgets/chathome_list_item.dart';
 
 class ChathomeBody extends StatelessWidget {
-  const ChathomeBody({super.key});
-
+  const ChathomeBody({super.key,  this.search_text});
+final String? search_text;
   @override
   Widget build(BuildContext context) {
     return  Column(
       children:[         
-         SizedBox(height: 1,child: Divider(color: const Color.fromARGB(255, 0, 0, 0),thickness: .15,)),
-         
+         const SizedBox(height: 1,child: Divider(color: Color.fromARGB(255, 0, 0, 0),thickness: .15,)),         
         StreamBuilder(
           stream: FirebaseFirestore.instance.collection('rooms')
           .where('members',arrayContains: FirebaseAuth.instance.currentUser!.uid)

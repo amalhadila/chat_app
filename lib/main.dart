@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:new_chat/features/splash/presentation/views/splash_view.dart';
 import 'package:new_chat/firebase_options.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

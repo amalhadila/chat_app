@@ -6,7 +6,6 @@ import 'package:new_chat/features/chat_home/presentation/views/calls_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chathome_view.dart';
 import 'package:new_chat/features/profile/presentation/views/profile_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/status_view.dart';
-import 'package:new_chat/features/splash/presentation/views/splash_view.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -17,20 +16,48 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
    int currentindex =0;
-   static const List<Widget> _pages =[
-    ChathomeView(),
-    StatusView(),
-    CallsView(),
+     bool _isSearchActive = false;
+       TextEditingController _searchController = TextEditingController();
+
+
+   static  List<Widget> _pages =[   
    ];
   @override
+    @override
+  void initState() {
+    super.initState();
+    _pages = [
+      ChathomeView(search_text: _searchController.text),
+      const StatusView(),
+      const CallsView(),
+    ];
+  }
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor:Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-         title: Text('WhatsUp',style: Styles.textStyle18.copyWith(color: Colors.black),),
+         title:  _isSearchActive
+          ? TextField(
+              controller: _searchController,
+              style: Styles.textStyle18.copyWith(color: Colors.black),
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+                border: InputBorder.none,
+              ),
+            ):
+            Text('WhatsUp',style: Styles.textStyle18.copyWith(color: Colors.black),),
         actions: [  
-              IconButton(onPressed: (){}, icon: const Icon(Icons.search)),
+              IconButton(onPressed: (){
+                setState(() {
+              _isSearchActive = !_isSearchActive;
+              if (!_isSearchActive) {
+                _searchController.clear();
+              }
+            });
+
+              }, icon: Icon(_isSearchActive ? Icons.close : Icons.search),),
               const SizedBox(width: 10,),
                         
             PopupMenuButton<String>(
