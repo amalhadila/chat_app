@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_chat/core/theme/color_app.dart';
 import 'package:new_chat/core/theme/styles.dart';
+import 'package:new_chat/features/auth/presentation/views/login_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/calls_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chathome_view.dart';
 import 'package:new_chat/features/profile/presentation/views/profile_view.dart';
@@ -37,7 +38,8 @@ class _BottomBarState extends State<BottomBar> {
       backgroundColor:Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-         title:  _isSearchActive
+        automaticallyImplyLeading: false,
+         title: ( _isSearchActive && currentindex==0)
           ? TextField(
             onChanged: (value) {
               setState(() {
@@ -59,21 +61,26 @@ class _BottomBarState extends State<BottomBar> {
                 setState(() {
               _isSearchActive = !_isSearchActive;
               if (!_isSearchActive) {
+                 search_text='';
+                _pages[0] = ChathomeView(search_text: search_text);
                 _searchController.clear();
               }
             });
 
-              }, icon: Icon(_isSearchActive ? Icons.close : Icons.search),),
+              }, icon: Icon(( _isSearchActive && currentindex==0)
+          ? Icons.close : Icons.search),),
               const SizedBox(width: 10,),
                         
             PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert), 
           color:Colors.white ,
-           onSelected: (String value) {
+           onSelected: (String value)async {
     if (value == 'profile') {
       Navigator.push(context, MaterialPageRoute(builder:(context) => const ProfileView()));
     } else if (value == 'log out')  {
-     FirebaseAuth.instance.signOut();
+     await FirebaseAuth.instance.signOut();
+     Navigator.push(context, MaterialPageRoute(builder:(context) => const LoginView()));
+    
     }
   },
           itemBuilder: (BuildContext context) {

@@ -35,7 +35,8 @@ class _ChathomeViewState extends State<ChathomeView> {
   for (Contact contact in contacts) {
     Contact? fullContact = await FlutterContacts.getContact(contact.id);
     if (fullContact != null && fullContact.phones.isNotEmpty) {
-      String phone = fullContact.phones.first.number.trim(); 
+      String phone = fullContact.phones.first.number.trim();
+      phone = phone.replaceAll(' ', ''); 
       if (!phoneNumbers.contains(phone)) {
         phoneNumbers.add(phone);  }
     }
@@ -50,13 +51,14 @@ class _ChathomeViewState extends State<ChathomeView> {
     return  Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: ()async{
         bool permissionGranted = await FlutterContacts.requestPermission();
-    await _fetchContacts();
-    Navigator.push(
+         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ContactsView(contacts: fullContact_list),
           ),
         );
+    await _fetchContacts();
+   
        
 
       

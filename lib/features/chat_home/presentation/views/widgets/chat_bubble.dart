@@ -47,8 +47,8 @@ class _ChatBubbleState extends State<ChatBubble> {
             crossAxisAlignment:widget.isme? CrossAxisAlignment.end: CrossAxisAlignment.start,
             children: [
                        widget.type=='image'?  Container(
-                        width: MediaQuery.of(context).size.width*.25,
-                        height: MediaQuery.of(context).size.height*.35,
+                        width: MediaQuery.of(context).size.width*.45,
+                        height: MediaQuery.of(context).size.height*.3,
                         
                         child:CachedNetworkImage( imageUrl:widget.messages,fit: BoxFit.fill,),
                        ):Text(widget.messages,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w500,color: Colors.black),),

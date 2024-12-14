@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:new_chat/features/auth/data/models/user_model.dart';
 import 'package:new_chat/features/chat_home/data/models/message_model.dart';
 import 'package:new_chat/features/chat_home/data/models/room_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseChat {
@@ -30,35 +31,36 @@ class FirebaseChat {
   }
 }
   }
- 
- 
-Future<void> addContacts(List<String> phones) async {
-  List<String> userIds = [];
 
-  for (String phone in phones) {
-    QuerySnapshot userPhoneSnapshot = await firebasestorage
+Future<void> addContacts(List<String> phones) async {
+  final Set<String> userIds = {};
+
+  for (int i = 0; i < phones.length; i += 30) {
+    final List<String> batch = phones.sublist(
+      i,
+      i + 30 > phones.length ? phones.length : i + 30,
+    );
+
+    final snapshot = await FirebaseFirestore.instance
         .collection('users')
-        .where('phone', isEqualTo: phone)
+        .where('phone', whereIn: batch)
         .get();
 
-    if (userPhoneSnapshot.docs.isNotEmpty) {
-      String userId = userPhoneSnapshot.docs.first.id;
-
-      if (!userIds.contains(userId)) {
-        userIds.add(userId);
-      }
+    for (var doc in snapshot.docs) {
+      userIds.add(doc.id);
     }
   }
 
   if (userIds.isNotEmpty) {
-    await firebasestorage.collection('users').doc(my_id).update({
-      'contacts': FieldValue.arrayUnion(userIds),
+    await FirebaseFirestore.instance.collection('users').doc(my_id).update({
+      'contacts': userIds.toList(),
     });
-    print('Contacts added successfully: $userIds');
+    print('success');
   } else {
-    print('No matching users found.');
+    print('no contacts');
   }
 }
+
 
 
  Future sendmessage({required String uid,String? message,required String room_id, String? type}) async{
