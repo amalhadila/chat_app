@@ -19,7 +19,7 @@ final String? search_text;
          
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-               final List<RoomModel> rooms = snapshot.data!.docs.map((e)=>RoomModel.fromMap(e.data())).toList();
+               final List<RoomModel> rooms = snapshot.data!.docs.map((e)=>RoomModel.fromMap(e.data())).where((e)=>e.name!.contains(search_text!)).toList();
               rooms.sort((a, b) {
                 return b.lastmessagetime!.compareTo(a.lastmessagetime!); 
               });
@@ -27,6 +27,7 @@ final String? search_text;
   child: ListView.builder(
     itemCount: rooms.length,
     itemBuilder: (context, index) {
+
       return  ChathomeListItem(lastmessagetime: rooms[index].lastmessagetime!,members: rooms[index].members!,name: rooms[index].id!, subtitle: rooms[index].lastmessage!, date: rooms[index].lastmessagetime!,room_id: rooms[index].id!,);
       
     },

@@ -19,7 +19,7 @@ class _BottomBarState extends State<BottomBar> {
      bool _isSearchActive = false;
        TextEditingController _searchController = TextEditingController();
 
-
+      String  search_text='';
    static  List<Widget> _pages =[   
    ];
   @override
@@ -27,7 +27,7 @@ class _BottomBarState extends State<BottomBar> {
   void initState() {
     super.initState();
     _pages = [
-      ChathomeView(search_text: _searchController.text),
+      ChathomeView(search_text: search_text),
       const StatusView(),
       const CallsView(),
     ];
@@ -39,6 +39,12 @@ class _BottomBarState extends State<BottomBar> {
         backgroundColor: Colors.white,
          title:  _isSearchActive
           ? TextField(
+            onChanged: (value) {
+              setState(() {
+                search_text=value;
+                _pages[0] = ChathomeView(search_text: search_text);
+              });
+            },
               controller: _searchController,
               style: Styles.textStyle18.copyWith(color: Colors.black),
               decoration: InputDecoration(

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:new_chat/features/auth/data/models/user_model.dart';
 import 'package:new_chat/features/chat_home/data/models/message_model.dart';
 import 'package:new_chat/features/chat_home/data/models/room_model.dart';
 import 'package:uuid/uuid.dart';
@@ -12,12 +13,14 @@ class FirebaseChat {
     QuerySnapshot user_email=await firebasestorage.collection('users').where('email',isEqualTo: email).get();
     if (user_email.docs.isNotEmpty) {
     String user_id=user_email.docs.first.id;
+  UserModel user_name = UserModel.fromMap(user_email.docs.first.data() as Map<String, dynamic>);
     List<String> members=[my_id,user_id]..sort((a, b) => a.compareTo(b),);
     QuerySnapshot room_exist= await firebasestorage.collection('rooms').where('members',isEqualTo: members).get();
      
   if (room_exist.docs.isEmpty) {
     RoomModel chatroom =RoomModel(
       id: members.toString(),
+      name: user_name.name,
      members: [my_id,user_id],
      createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
      lastmessage:'',

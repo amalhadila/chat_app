@@ -1,5 +1,6 @@
 class RoomModel {
   String? id;
+  String? name;
   List? members;
   String? createdAt;
   String? lastmessage;
@@ -8,6 +9,7 @@ class RoomModel {
 
   RoomModel ({
  this.id,
+ this.name,
  this.members,
  this.createdAt,
  this.lastmessage,
@@ -18,6 +20,7 @@ class RoomModel {
 factory RoomModel.fromMap(Map<String, dynamic> map) {
     return RoomModel(
       id: map['id'],
+       name: map['name'],
       members: map['members'],
       createdAt: map['createdAt'],
       lastmessage: map['lastmessage'],
@@ -29,6 +32,7 @@ factory RoomModel.fromMap(Map<String, dynamic> map) {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'name': name,
       'members': members,
       'createdAt': createdAt,
       'lastmessage': lastmessage,
