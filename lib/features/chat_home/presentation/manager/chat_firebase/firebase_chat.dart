@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:new_chat/features/auth/data/models/user_model.dart';
+import 'package:new_chat/features/chat_home/data/models/group_model.dart';
 import 'package:new_chat/features/chat_home/data/models/message_model.dart';
 import 'package:new_chat/features/chat_home/data/models/room_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +32,24 @@ class FirebaseChat {
   }
 }
   }
+ 
+Future creategroup(String groupName,List members) async{
+  String id=Uuid().v1();
+  members.add(my_id);
+  GroupModel groupModel=GroupModel(
+    id: id,
+    name: groupName,
+    image: '',
+    admins: [my_id],
+    members:members ,
+    createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
+    lastmessage:'',
+    lastmessagetime: DateTime.now().millisecondsSinceEpoch.toString(),   
+   
+
+  );
+   await firebasestorage.collection('groups').doc(id).set(groupModel.toMap());  
+} 
 
 Future<void> addContacts(List<String> phones) async {
   final Set<String> userIds = {};
@@ -82,4 +101,22 @@ Future<void> addContacts(List<String> phones) async {
   Future messageseen(String room_id,String message_id) async{
     await firebasestorage.collection('rooms').doc(room_id).collection('messages').doc(message_id).update({'read':'true'});
   }
+
+  Future sendGmessage({String? message,required String group_id, String? type}) async{
+    String message_id=Uuid().v1();
+    MessageModel messageModel=MessageModel(
+      id:message_id,
+     fromid: my_id,
+     
+      toid: '', 
+           messsage: message,
+      messsagetime: DateTime.now().millisecondsSinceEpoch.toString(),
+      type:type?? 'text', 
+           read: '');
+
+    await   firebasestorage.collection('groups').doc(group_id).collection('messages').doc(message_id).set(messageModel.toMap());   
+    await firebasestorage.collection('groups').doc(group_id).update({'lastmessage':message,'lastmessagetime':DateTime.now().millisecondsSinceEpoch.toString()});  
+  }
+  
+ 
 }

@@ -5,6 +5,8 @@ import 'package:new_chat/core/theme/styles.dart';
 import 'package:new_chat/features/auth/presentation/views/login_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/calls_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chathome_view.dart';
+import 'package:new_chat/features/chat_home/presentation/views/create_group_view.dart';
+import 'package:new_chat/features/chat_home/presentation/views/groups_view.dart';
 import 'package:new_chat/features/profile/presentation/views/profile_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/status_view.dart';
 
@@ -29,6 +31,7 @@ class _BottomBarState extends State<BottomBar> {
     super.initState();
     _pages = [
       ChathomeView(search_text: search_text),
+      GroupsView(),
       const StatusView(),
       const CallsView(),
     ];
@@ -81,6 +84,9 @@ class _BottomBarState extends State<BottomBar> {
      await FirebaseAuth.instance.signOut();
      Navigator.push(context, MaterialPageRoute(builder:(context) => const LoginView()));
     
+    }else if (value == 'New group')  {
+     Navigator.push(context, MaterialPageRoute(builder:(context) => const CreateGroupView())); 
+    
     }
   },
           itemBuilder: (BuildContext context) {
@@ -93,6 +99,10 @@ class _BottomBarState extends State<BottomBar> {
                 value: 'log out',
                 child:  Text('log out'),
               ),
+              const PopupMenuItem<String>(
+                value: 'New group',
+                child:  Text('New group'),
+              ),
 
             ];
           },
@@ -103,6 +113,7 @@ class _BottomBarState extends State<BottomBar> {
       body: _pages[currentindex],
       bottomNavigationBar: BottomNavigationBar(  
         backgroundColor: Colors.white,    
+         type: BottomNavigationBarType.fixed,
         elevation: 0,
       onTap: (value){        
         setState(() {
@@ -114,6 +125,7 @@ class _BottomBarState extends State<BottomBar> {
      // unselectedItemColor:ColorApp.primaryColor,
       items: const [
       BottomNavigationBarItem(icon: Icon(Icons.chat),label: 'Chats'),
+      BottomNavigationBarItem(icon: Icon(Icons.group),label: 'group'),
       BottomNavigationBarItem(icon: Icon(Icons.lightbulb),label: 'Status'),
       BottomNavigationBarItem(icon: Icon(Icons.phone),label: 'Calls'),
     ],
