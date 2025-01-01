@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 
 class ChatBubble extends StatefulWidget {
-  const ChatBubble({super.key,required this.type, required this.messages, required this.isme, required this.messagestime, required this.read, required this.room_id, required this.message_id, required this.toid});
+  const ChatBubble({super.key,required this.type,this.from, required this.messages, required this.isme, required this.messagestime, required this.read, required this.room_id, required this.message_id, required this.toid});
   final String messages; 
   final String messagestime;
   final String type;
@@ -15,6 +15,7 @@ class ChatBubble extends StatefulWidget {
   final String room_id;
   final String message_id;
   final String toid;
+  final String? from;
 
 
   @override
@@ -46,6 +47,7 @@ class _ChatBubbleState extends State<ChatBubble> {
           child: Column(
             crossAxisAlignment:widget.isme? CrossAxisAlignment.end: CrossAxisAlignment.start,
             children: [
+              widget.from!=null?Text(widget.from!,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w500,color: Colors.black),):SizedBox(),
                        widget.type=='image'?  Container(
                         width: MediaQuery.of(context).size.width*.45,
                         height: MediaQuery.of(context).size.height*.3,

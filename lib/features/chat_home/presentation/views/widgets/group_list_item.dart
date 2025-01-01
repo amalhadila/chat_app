@@ -4,25 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:new_chat/core/theme/color_app.dart';
 import 'package:new_chat/features/auth/data/models/user_model.dart';
+import 'package:new_chat/features/chat_home/data/models/group_model.dart';
 import 'package:new_chat/features/chat_home/data/models/message_model.dart';
 import 'package:new_chat/features/chat_home/presentation/views/chat_view.dart';
 import 'package:new_chat/features/chat_home/presentation/views/group_chat_view.dart';
 
 class GroupListItem extends StatelessWidget {
-  const GroupListItem({super.key,required this.lastmessagetime, required this.name, required this.subtitle, required this.date,  required this.room_id, required this.members});
+  const GroupListItem({super.key,required this.lastmessagetime, required this.name, required this.subtitle, required this.date,  required this.room_id, required this.members, required this.groub});
   final String? name;
   final String? subtitle;
   final String ?date;
     final String room_id;
     final List members;
     final String lastmessagetime;
+   final GroupModel groub;
 
   @override
   Widget build(BuildContext context) {
           
   return ListTile(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder:(context) =>  GroupChatView(group_id: room_id,group_name: name!,)));
+      Navigator.push(context, MaterialPageRoute(builder:(context) =>  GroupChatView(
+        groub:groub,members: members,group_id: room_id,group_name: name!,)));
     },
     contentPadding: const EdgeInsets.symmetric(vertical: 2,horizontal:16),
     

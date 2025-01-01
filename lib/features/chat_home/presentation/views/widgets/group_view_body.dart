@@ -30,7 +30,7 @@ final String? search_text;
     itemCount: groub.length,
     itemBuilder: (context, index) {
 
-      return  GroupListItem(lastmessagetime: groub[index].lastmessagetime!,members: groub[index].members!,name: groub[index].name!, subtitle: groub[index].lastmessage!, date: groub[index].lastmessagetime!,room_id: groub[index].id!,);
+      return  GroupListItem(groub:groub[index],lastmessagetime: groub[index].lastmessagetime!,members: groub[index].members!,name: groub[index].name!, subtitle: groub[index].lastmessage!, date: groub[index].lastmessagetime!,room_id: groub[index].id!,);
       
     },
   

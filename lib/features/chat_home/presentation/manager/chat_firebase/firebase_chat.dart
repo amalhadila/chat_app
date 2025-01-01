@@ -118,5 +118,15 @@ Future<void> addContacts(List<String> phones) async {
     await firebasestorage.collection('groups').doc(group_id).update({'lastmessage':message,'lastmessagetime':DateTime.now().millisecondsSinceEpoch.toString()});  
   }
   
+  Future edit_group({required String id,List? members,List? admins}) async{
+    await firebasestorage.collection('groups').doc(id).update({'members':FieldValue.arrayUnion(members??[]),
+    'admins':FieldValue.arrayUnion(admins??[])});
+  }
+
+  Future remove_member({required String id,List? members,List? admins}) async{
+    await firebasestorage.collection('groups').doc(id).update({'members':FieldValue.arrayRemove(members??[]),
+    'admins':FieldValue.arrayRemove(admins??[])});
+  }
+  
  
 }

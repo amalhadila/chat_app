@@ -35,7 +35,7 @@ final String? search_text;
   ),
         );
 }else{
-  return SizedBox();
+  return Container();
 }
           }
         ),]

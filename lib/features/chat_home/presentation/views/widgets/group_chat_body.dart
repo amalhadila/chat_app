@@ -18,6 +18,7 @@ class GroupChatBody extends StatelessWidget {
          StreamBuilder(
            stream: FirebaseFirestore.instance.collection('groups').doc(group_id).collection('messages').snapshots(),
            builder: (context, snapshot) {
+            UserModel? from_user;
              if (snapshot.hasData) {
               List<MessageModel> messages=snapshot.data!.docs.map((toElement)=> MessageModel.fromMap(toElement.data())).toList()..sort((a, b) => a.messsagetime!.compareTo(b.messsagetime!),);
               
@@ -26,11 +27,23 @@ class GroupChatBody extends StatelessWidget {
                   itemCount: messages.length,
                 itemBuilder: (context, index) {
                   bool isme=messages[index].fromid==FirebaseAuth.instance.currentUser!.uid;
-                  return ChatBubble(toid: messages[index].toid!,room_id: group_id,message_id: messages[index].id!,read: messages[index].read!,messages: messages[index].messsage!,isme:isme,messagestime: messages[index].messsagetime!, type: messages[index].type!,);
+                  return StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection('users').doc(messages[index].fromid).snapshots(),
+                    
+                    builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+               from_user=UserModel.fromMap(snapshot.data!.data()!);
+                        
+                      return ChatBubble(toid: messages[index].toid!,room_id: group_id,message_id: messages[index].id!,read: messages[index].read!,messages: messages[index].messsage!,isme:isme,messagestime: messages[index].messsagetime!, type: messages[index].type!,from: from_user!.name,);
+                    }else{
+                                            return ChatBubble(toid: messages[index].toid!,room_id: group_id,message_id: messages[index].id!,read: messages[index].read!,messages: messages[index].messsage!,isme:isme,messagestime: messages[index].messsagetime!, type: messages[index].type!);
+
+                    }}
+                  );
                 },),
               );
             }else{
-              return SizedBox();
+              return Container();
             }
            }
          ),
